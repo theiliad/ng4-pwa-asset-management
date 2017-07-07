@@ -1,3 +1,21 @@
-div.plumHome {
-    
+article.bx--card {
+    float: left;
+    margin-right: 30px;
+
+    h3 {
+        font-weight: 700;
+    }
+
+    p {
+        margin: 10px 0;
+        font-size: 13px;
+
+        &.left {
+            text-align: left;
+        }
+
+        b {
+            font-weight: bold;
+        }
+    }
 }

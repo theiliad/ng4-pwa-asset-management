@@ -1,6 +1,7 @@
 @import './reset.scss';
 @import './constants.scss';
 
-html, body {
-    background: red;
-}
+// Carbon Design Framework
+@import 'node_modules/carbon-components/scss/components/card/card';
+@import 'node_modules/carbon-components/scss/components/data-table/data-table';
+@import 'node_modules/carbon-components/scss/components/pagination/pagination';

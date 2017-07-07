@@ -12,7 +12,7 @@
     "test": "karma start config/karma.conf.js",
     "lint": "tslint -c config/tslint.json \"src/app/**/*.ts\"",
     "pretest": "npm run lint",
-    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
+    "build": "ENV=prod rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
   },
   "dependencies": {
     "@angular/common": "^4.0.2",
