@@ -13,11 +13,15 @@ import { HomeComponent } from "./_components/home/home.component";
 // Services
 import { DatabaseService }      from './_services/database/database.service'
 
+// Providers
+import { AngularIndexedDB } from 'angular2-indexeddb';
+
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
+
         ROUTING
     ],
     declarations: [
@@ -25,7 +29,8 @@ import { DatabaseService }      from './_services/database/database.service'
         HomeComponent
     ],
     providers: [
-        DatabaseService
+        DatabaseService,
+        AngularIndexedDB
     ],
     bootstrap: [
         AppComponent
