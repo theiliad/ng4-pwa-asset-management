@@ -1,17 +1,20 @@
 var webpack = require("webpack");
 var webpackMerge = require("webpack-merge");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 var commonConfig = require("./webpack.common.js");
 var helpers = require("./helpers");
 
 const ENV = process.env.ENV = "prod";
+
+const PUBLIC_PATH = "/";
 
 module.exports = webpackMerge(commonConfig, {
     devtool: "source-map",
 
     output: {
         path: helpers.root("dist"),
-        publicPath: "/",
+        publicPath: PUBLIC_PATH,
         filename: "[name].[hash].js",
         chunkFilename: "[id].[hash].chunk.js"
     },
@@ -35,6 +38,16 @@ module.exports = webpackMerge(commonConfig, {
                     minimize: false
                 }
             }
-        })
+        }),
+        new SWPrecacheWebpackPlugin(
+            {
+                cacheId: 'my-project-name',
+                dontCacheBustUrlsMatching: /\.\w{8}\./,
+                filename: 'service-worker.js',
+                minify: true,
+                navigateFallback: PUBLIC_PATH + 'index.html',
+                staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+            }
+        )
     ]
 });
