@@ -10,6 +10,7 @@
   "scripts": {
     "start": "nodemon ./server/server.js",
     "dev-server": "webpack-dev-server --inline --config config/webpack.dev.js --progress --port 3000",
+    "prod-watch": "webpack -w --config config/webpack.prod.js --progress",
     "test": "karma start config/karma.conf.js",
     "lint": "tslint -c config/tslint.json \"src/app/**/*.ts\"",
     "pretest": "npm run lint",

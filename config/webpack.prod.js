@@ -44,9 +44,14 @@ module.exports = webpackMerge(commonConfig, {
                 cacheId: 'my-project-name',
                 dontCacheBustUrlsMatching: /\.\w{8}\./,
                 filename: 'service-worker.js',
-                minify: true,
-                navigateFallback: PUBLIC_PATH + 'index.html',
+                minify: false,
+                navigateFallback: PUBLIC_PATH,
                 staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+                runtimeCaching: [{
+                    // urlPattern: /node-hnapi\.herokuapp\.com/,
+                    urlPattern: /^https?:\/\/(localhost:([0-9]+\.)+[a-zA-Z0-9]{1,6})?$/,
+                    handler: 'networkFirst'
+                }]
             }
         )
     ]
