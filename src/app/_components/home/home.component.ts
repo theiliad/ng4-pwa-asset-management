@@ -1,6 +1,8 @@
 import { Component, OnInit }        from "@angular/core";
 import { DatabaseService }          from '../../_services/database/database.service';
 
+import { Observable } from 'rxjs/Observable';
+
 @Component({
     selector: "em-home",
     templateUrl: "./home.component.html",
@@ -9,8 +11,11 @@ import { DatabaseService }          from '../../_services/database/database.serv
 
 export class HomeComponent implements OnInit {
     jobsData: any;
+    online: Observable<boolean>;
 
-    constructor (private databaseService: DatabaseService) { }
+    constructor (private databaseService: DatabaseService) {
+        this.online = databaseService.internetConnection;
+    }
 
     ngOnInit() {
         this.databaseService.getJobs().then(
@@ -38,6 +43,6 @@ export class HomeComponent implements OnInit {
             return a.value.priority - b.value.priority;
         });
         
-        console.log(this.jobsData);
+        console.log("jobsData", this.jobsData);
     }
 }

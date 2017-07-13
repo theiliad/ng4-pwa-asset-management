@@ -5,3 +5,45 @@
 @import 'node_modules/carbon-components/scss/components/card/card';
 @import 'node_modules/carbon-components/scss/components/data-table/data-table';
 @import 'node_modules/carbon-components/scss/components/pagination/pagination';
+@import 'node_modules/carbon-components/scss/components/notification/_inline-notification';
+
+@mixin transition() {
+    transition: all .2s ease-out;
+}
+
+body {
+    padding: 0 !important;
+}
+
+button {
+    &.bx--app-actions__button {
+        svg {
+            fill: #8c9ba5;
+            @include transition();
+
+            &:hover {
+                fill: #3d70b2;
+                @include transition();
+            }
+        }
+    }
+}
+
+header {
+    &#site-header {
+        width: 100%;
+        height: 50px;
+        background: #1e3749;
+        z-index: 1000;
+        font-size: 17px;
+        font-weight: 300;
+        line-height: 48px;
+        overflow: hidden;
+
+        a {
+            margin: 0 20px;
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+}

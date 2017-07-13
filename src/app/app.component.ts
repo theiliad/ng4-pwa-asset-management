@@ -2,11 +2,11 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 
 import 'svgxuse';
 
-// (function() {
-//   if('serviceWorker' in navigator) {
-//     navigator.serviceWorker.register('/service-worker.js');
-//   }
-// })();
+(function() {
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
+})();
 
 @Component({
     selector: "em-app",
@@ -16,9 +16,7 @@ import 'svgxuse';
 })
 
 export class AppComponent implements OnInit {
-    
     public constructor() {}
     
     public ngOnInit(): void {}
-    
 }

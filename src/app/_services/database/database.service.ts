@@ -8,7 +8,7 @@ import { AngularIndexedDB } from 'angular2-indexeddb';
 
 @Injectable()
 export class DatabaseService {
-    internetConnection: Observable<boolean>;
+    public internetConnection: Observable<boolean>;
     
     // Endpoint URLs
     private baseURL: string =        `https://polymer-1st-try.firebaseio.com`;
@@ -25,7 +25,7 @@ export class DatabaseService {
         console.log("Initializing DB");
         this.db = new AngularIndexedDB('ng4-pwa', 1);
     }
-
+    
     // getDevices(requestParams?): Promise<Object> {
     getJobs() {
         console.log("GET JOBS");
@@ -52,35 +52,24 @@ export class DatabaseService {
                                     let objectStore = evt.currentTarget.result.createObjectStore(
                                         'jobs', { keyPath: "id", autoIncrement: true });
 
-                                    objectStore.createIndex("name", "name", { unique: false });
-                                    objectStore.createIndex("value", "value", { unique: true });
+                                    objectStore.createIndex("name", "name", { unique: true });
+                                    objectStore.createIndex("value", "value", { unique: false });
                                 })
                                 .then(() => {
-                                    Object.keys(jobs).map(key => {
-                                        this.db.add('jobs', jobs[key]).then(() => {
-                                            console.log("ADDED");
-
-                                            this.db.getAll('jobs').then((result) => {
-                                                console.log(result);
-                                            }, (error) => {
+                                    this.db.clear('jobs').then(() => {
+                                        Object.keys(jobs).map(key => {
+                                            this.db.add('jobs', jobs[key]).then(
+                                            (error) => {
                                                 console.log(error);
+
+                                                resolve(false);
                                             });
-                                        }, (error) => {
-                                            console.log(error);
                                         });
+                                    }, (error) => {
+                                        console.log(error);
+
+                                        resolve(false);
                                     });
-
-                                    // this.db.add('jobs', { name: 'Eliad' + Math.random(), value: 'iliadmoosavi@gmail.com' + Math.random() }).then(() => {
-                                    //     console.log("ADDED");
-
-                                    //     this.db.getAll('jobs').then((result) => {
-                                    //         console.log(result);
-                                    //     }, (error) => {
-                                    //         console.log(error);
-                                    //     });
-                                    // }, (error) => {
-                                    //     console.log(error);
-                                    // });
                                 });
 
                                 resolve(res.json())

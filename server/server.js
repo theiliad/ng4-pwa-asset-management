@@ -10,6 +10,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + '/../dist'));
 
+app.use('/assets/img/carbon-icons.svg', express.static(__dirname + '/../node_modules/carbon-icons/dist/carbon-icons.svg'));
+
 // app.use('/assets/img/carbon-icons.svg', express.static(__dirname + '/node_modules/carbon-icons/dist/carbon-icons.svg'));
 
 app.get('*', (req, res) => {
