@@ -30,28 +30,11 @@
   <div class="bx--card__card-overview">
     <!-- OverflowMenu -->
     <div data-overflow-menu class="bx--overflow-menu" tabindex="0" aria-label="List of options">
-      <svg class="bx--overflow-menu__icon" width="4" height="20" viewBox="0 0 4 20" fill-rule="evenodd">
-        <circle cx="2" cy="2" r="2"></circle>
-        <circle cx="2" cy="10" r="2"></circle>
-        <circle cx="2" cy="18" r="2"></circle>
-      </svg>
-      <ul class="bx--overflow-menu-options">
-        <li class="bx--overflow-menu-options__option">
-          <button type="button" class="bx--overflow-menu-options__btn">Stop App</button>
-        </li>
-        <li class="bx--overflow-menu-options__option">
-          <button type="button" class="bx--overflow-menu-options__btn">Restart App</button>
-        </li>
-        <li class="bx--overflow-menu-options__option">
-          <button type="button" class="bx--overflow-menu-options__btn">Restart App</button>
-        </li>
-        <li class="bx--overflow-menu-options__option">
-          <button type="button" class="bx--overflow-menu-options__btn">Edit Routes and Access</button>
-        </li>
-        <li class="bx--overflow-menu-options__option bx--overflow-menu--divider">
-          <button type="button" class="bx--overflow-menu-options__btn">Delete App</button>
-        </li>
-      </ul>
+      <button class="bx--app-actions__button" id="start-job" aria-label="start-job">
+        <svg width="21" height="13">
+          <use xlink:href="/assets/img/carbon-icons.svg#icon--arrow--right"></use>
+        </svg>
+      </button>
     </div>
     <div class="bx--card-overview__about">
       <figure class="bx--about__icon">

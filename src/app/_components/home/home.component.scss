@@ -3,7 +3,29 @@ article.bx--card {
     margin-right: 30px;
     position: relative;
 
+    figure {
+        &.bx--about__icon {
+            width: 2.125rem;
+            height: 2.125rem;
+            padding: 15px 0;
+            margin: 0;
+            background: #f0f3f6;
+            color: #7b8992;
+            border: none;
+        }
+    }
+
+    header {
+        &.bx--about__title {
+            padding-top: 12px;
+        }
+    }
+
     div {
+        &.bx--card-overview__about {
+            padding-top: 0;
+        }
+
         &.stop {
             position: absolute;
             top: 0;
