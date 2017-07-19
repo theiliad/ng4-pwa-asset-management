@@ -16,6 +16,17 @@
 </div>
 
 <article class="bx--card" tabindex="0" aria-labelledby="card-title-1" *ngFor="let job of jobsData; let i = index;">
+  <div class="stop" *ngIf="job.stopClicked">
+    <div>
+      <p>
+        Do you wish to complete the job?
+      </p>
+
+      <button class="bx--btn bx--btn--secondary" type="button" (click)="stopOnly(i);">No, stop only</button>
+      <button class="bx--btn bx--btn--primary" type="button" (click)="completeJob(i);">Yes</button>
+    </div>
+  </div>
+
   <div class="bx--card__card-overview">
     <!-- OverflowMenu -->
     <div data-overflow-menu class="bx--overflow-menu" tabindex="0" aria-label="List of options">
@@ -82,13 +93,13 @@
       </div>
     </div>
     <div class="bx--card-footer__app-actions" *ngIf="job.value.status !== 'completed'">
-      <button class="bx--app-actions__button" id="start-job" aria-label="start-job">
-        <svg width="21" height="17" *ngIf="job.value.status === 'approved'">
+      <button class="bx--app-actions__button" id="start-job" aria-label="start-job" *ngIf="job.value.status === 'approved'" (click)="startJob(i);">
+        <svg width="21" height="17">
           <use xlink:href="/assets/img/carbon-icons.svg#icon--start"></use>
         </svg>
       </button>
 
-      <button class="bx--app-actions__button" id="stop-job" aria-label="stop-job" *ngIf="job.value.status === 'in-progress'">
+      <button class="bx--app-actions__button" id="stop-job" aria-label="stop-job" *ngIf="job.value.status === 'in-progress'" (click)="stopJob(i);">
         <svg width="21" height="15">
           <use xlink:href="/assets/img/carbon-icons.svg#icon--stop"></use>
         </svg>
