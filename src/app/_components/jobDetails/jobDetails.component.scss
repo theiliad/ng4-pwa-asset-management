@@ -8,3 +8,11 @@ header {
         max-height: 400px;
     }
 }
+
+div {
+    &.bx--module.bx--module--double {
+        max-width: none;
+        width: 100%;
+        padding: 20px;
+    }
+}

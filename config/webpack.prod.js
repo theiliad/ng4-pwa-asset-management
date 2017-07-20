@@ -49,7 +49,7 @@ module.exports = webpackMerge(commonConfig, {
                 staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
                 runtimeCaching: [{
                     // urlPattern: /node-hnapi\.herokuapp\.com/,
-                    urlPattern: /^https?:\/\/(localhost:([0-9]+\.)+[a-zA-Z0-9]{1,6})?$/,
+                    urlPattern: /^http:\/\/localhost:3000\/*/,
                     handler: 'networkFirst'
                 }]
             }

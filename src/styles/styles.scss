@@ -8,6 +8,8 @@
 @import 'node_modules/carbon-components/scss/components/pagination/pagination';
 @import 'node_modules/carbon-components/scss/components/notification/_inline-notification';
 @import 'node_modules/carbon-components/scss/components/detail-page-header/_detail-page-header';
+@import 'node_modules/carbon-components/scss/components/module/_module';
+@import 'node_modules/carbon-components/scss/components/structured-list/_structured-list';
 
 @mixin transition() {
     transition: all .2s ease-out;
@@ -15,6 +17,7 @@
 
 body {
     padding: 0 !important;
+    background: #f5f7fa;
 }
 
 button {

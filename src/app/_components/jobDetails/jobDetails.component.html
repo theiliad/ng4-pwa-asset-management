@@ -1,32 +1,91 @@
-<header data-detail-page-header class="bx--detail-page-header bx--detail-page-header--no-tabs" *ngIf="job">
-  <div class="bx--detail-page-header-content">
-    <div class="bx--breadcrumb">
-      <div class="bx--breadcrumb-item">
-        <a href="#" class="bx--link" routerLink="/">
-          Jobs
-        </a>
+<div id="job" *ngIf="job">
+  <header data-detail-page-header class="bx--detail-page-header bx--detail-page-header--no-tabs">
+    <div class="bx--detail-page-header-content">
+      <div class="bx--breadcrumb">
+        <div class="bx--breadcrumb-item">
+          <a href="#" class="bx--link" routerLink="/">
+            Jobs
+          </a>
+        </div>
+        <div class="bx--breadcrumb-item">
+          Job Details
+        </div>
       </div>
-      <div class="bx--breadcrumb-item">
-        Job Details
+      <div class="bx--detail-page-header-title-container">
+        <!--<div class="bx--detail-page-header-icon-container">
+          <svg width="24" height="24" viewBox="0 0 24 24">
+            <path fill="#D8D8D8" d="M0 0h24v24H0z" fill-rule="evenodd" />
+          </svg>
+        </div>-->
+        <h1 class="bx--detail-page-header-title">{{ job.value.title }}</h1>
+
+        <div class="bx--detail-page-header-status-container">
+          <div class="bx--detail-page-header-status-icon"></div>
+          <span class="bx--detail-page-header-status-text">
+            {{ job.value.status }}
+          </span>
+        </div>
       </div>
     </div>
-    <div class="bx--detail-page-header-title-container">
-      <!--<div class="bx--detail-page-header-icon-container">
-        <svg width="24" height="24" viewBox="0 0 24 24">
-          <path fill="#D8D8D8" d="M0 0h24v24H0z" fill-rule="evenodd" />
-        </svg>
-      </div>-->
-      <h1 class="bx--detail-page-header-title">{{ job.value.title }}</h1>
+  </header>
+  
+  <div class="bx--module bx--module--double">
+    <div class="bx--module__inner">
+      <div class="bx--module__header">
+        <h1 class="bx--module__title">Job Details</h1>
+      </div>
+      <div class="bx--module__content">
+        <img [src]="job.value.photo" style="max-width: 500px; max-height: 300px; border-radius: 3px;">
 
-      <div class="bx--detail-page-header-status-container">
-        <div class="bx--detail-page-header-status-icon"></div>
-        <span class="bx--detail-page-header-status-text">
-          {{ job.value.status }}
-        </span>
+        <!-- Job Details - START -->
+        <section class="bx--structured-list">
+          <div class="bx--structured-list-tbody">
+            <div class="bx--structured-list-row">
+              <div class="bx--structured-list-td bx--structured-list-content--nowrap">
+                Description
+              </div>
+
+              <div class="bx--structured-list-td">
+                {{ job.value.description }}
+              </div>
+            </div>
+
+            <div class="bx--structured-list-row">
+              <div class="bx--structured-list-td bx--structured-list-content--nowrap">
+                Location
+              </div>
+
+              <div class="bx--structured-list-td">
+                {{ job.value.location }}
+              </div>
+            </div>
+
+            <div class="bx--structured-list-row">
+              <div class="bx--structured-list-td bx--structured-list-content--nowrap">
+                Asset
+              </div>
+
+              <div class="bx--structured-list-td">
+                {{ job.value.asset }}
+              </div>
+            </div>
+
+            <div class="bx--structured-list-row" *ngIf="job.value.start">
+              <div class="bx--structured-list-td bx--structured-list-content--nowrap">
+                Start Date & Time
+              </div>
+
+              <div class="bx--structured-list-td">
+                {{ job.value.start * 1000 | date: 'medium' }}
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Job Details - END -->
       </div>
     </div>
   </div>
-</header>
+</div>
 
 <div data-notification class="bx--inline-notification bx--inline-notification--error" role="alert" *ngIf="(online | async) === false">
   <div class="bx--inline-notification__details">
