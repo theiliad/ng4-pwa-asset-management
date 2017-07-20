@@ -7,6 +7,7 @@
 @import 'node_modules/carbon-components/scss/components/data-table/data-table';
 @import 'node_modules/carbon-components/scss/components/pagination/pagination';
 @import 'node_modules/carbon-components/scss/components/notification/_inline-notification';
+@import 'node_modules/carbon-components/scss/components/detail-page-header/_detail-page-header';
 
 @mixin transition() {
     transition: all .2s ease-out;

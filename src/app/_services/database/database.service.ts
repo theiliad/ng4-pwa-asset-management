@@ -49,8 +49,7 @@ export class DatabaseService {
                                 let jobs = res.json();
 
                                 this.db.createStore(1, (evt) => {
-                                    let objectStore = evt.currentTarget.result.createObjectStore(
-                                        'jobs', { keyPath: "id", autoIncrement: true });
+                                    let objectStore = evt.currentTarget.result.createObjectStore('jobs', { autoIncrement: true });
 
                                     objectStore.createIndex("name", "name", { unique: true });
                                     objectStore.createIndex("value", "value", { unique: false });
@@ -58,7 +57,7 @@ export class DatabaseService {
                                 .then(() => {
                                     this.db.clear('jobs').then(() => {
                                         Object.keys(jobs).map(key => {
-                                            this.db.add('jobs', jobs[key]).then(
+                                            this.db.add('jobs', jobs[key], key).then(
                                             (error) => {
                                                 console.log(error);
 
@@ -82,7 +81,7 @@ export class DatabaseService {
 
                     return this.db.createStore(1, (evt) => {
                         let objectStore = evt.currentTarget.result.createObjectStore(
-                            'jobs', { keyPath: "id", autoIncrement: true });
+                            'jobs', { autoIncrement: true });
 
                         objectStore.createIndex("name", "name", { unique: false });
                         objectStore.createIndex("value", "value", { unique: true });
@@ -98,27 +97,68 @@ export class DatabaseService {
                         });
                     });
                 }
+            });
+        });
+    }
 
-                // this.db = new AngularIndexedDB('ng4-pwa', 1);
-                // this.db.createStore(1, (evt) => {
-                //     let objectStore = evt.currentTarget.result.createObjectStore(
-                //         'people', { keyPath: "id", autoIncrement: true });
+    getJob(jobID) {
+        console.log("GET JOBS");
 
-                //     objectStore.createIndex("name", "name", { unique: false });
-                //     objectStore.createIndex("email", "email", { unique: true });
-                // }).then(() => {
-                //     this.db.add('people', { name: 'Eliad' + Math.random(), email: 'iliadmoosavi@gmail.com' + Math.random() }).then(() => {
-                //         console.log("ADDED");
+        return new Promise (resolve => {
+            this.internetConnection.subscribe(connected => {
+                if (connected) {
+                    console.log("CONNECTED");
+                    
+                    const url = this.baseURL.concat(`/jobs/${jobID}.json`);
 
-                //         this.db.getAll('people').then((result) => {
-                //             console.log(result);
-                //         }, (error) => {
-                //             console.log(error);
-                //         });
-                //     }, (error) => {
-                //         console.log(error);
-                //     });
-                // });
+                    return this.http.get(url)
+                            .toPromise()
+                            .then(res => {
+                                let job = res.json();
+
+                                this.db.createStore(1, (evt) => {
+                                    let objectStore = evt.currentTarget.result.createObjectStore(
+                                        'jobs', { autoIncrement: true });
+
+                                    objectStore.createIndex("name", "name", { unique: true });
+                                    objectStore.createIndex("value", "value", { unique: false });
+                                })
+                                .then(() => {
+                                    this.db.update('jobs', job, jobID).then(() => {
+                                        
+                                    }, (error) => {
+                                        console.log(error);
+
+                                        resolve(false);
+                                    });
+                                });
+
+                                resolve(job)
+                            })
+                            .catch(() => {
+                                resolve(false);
+                            });
+                } else {
+                    console.log("Not Connected");
+
+                    return this.db.createStore(1, (evt) => {
+                        let objectStore = evt.currentTarget.result.createObjectStore(
+                            'jobs', { autoIncrement: true });
+
+                        objectStore.createIndex("name", "name", { unique: false });
+                        objectStore.createIndex("value", "value", { unique: true });
+                    }).then(() => {
+                        this.db.getByKey('jobs', jobID).then((result) => {
+                            console.log(result);
+
+                            resolve(result);
+                        }, (error) => {
+                            console.log(error);
+
+                            resolve(false);
+                        });
+                    });
+                }
             });
         });
     }

@@ -1,92 +1,94 @@
-<div data-notification class="bx--inline-notification bx--inline-notification--error" role="alert" *ngIf="(online | async) === false">
-  <div class="bx--inline-notification__details">
-    <svg class="bx--inline-notification__icon" width="16" height="16" viewBox="0 0 16 16" fill-rule="evenodd">
-      <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zM5.1 13.3L3.5 12 11 2.6l1.5 1.2-7.4 9.5z"></path>
-    </svg>
-    <div class="bx--inline-notification__text-wrapper">
-      <p class="bx--inline-notification__title">Offline Version:</p>
-      <p class="bx--inline-notification__subtitle">Content here might be outdated, be sure to connect soon</p>
+<div style="padding: 20px;">
+  <div data-notification class="bx--inline-notification bx--inline-notification--error" role="alert" *ngIf="(online | async) === false">
+    <div class="bx--inline-notification__details">
+      <svg class="bx--inline-notification__icon" width="16" height="16" viewBox="0 0 16 16" fill-rule="evenodd">
+        <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zM5.1 13.3L3.5 12 11 2.6l1.5 1.2-7.4 9.5z"></path>
+      </svg>
+      <div class="bx--inline-notification__text-wrapper">
+        <p class="bx--inline-notification__title">Offline Version:</p>
+        <p class="bx--inline-notification__subtitle">Content here might be outdated, be sure to connect soon</p>
+      </div>
     </div>
-  </div>
-  <button data-notification-btn class="bx--inline-notification__close-button" type="button">
-    <svg class="bx--inline-notification__close-icon" aria-label="close" width="10" height="10" viewBox="0 0 10 10" fill-rule="evenodd">
-      <path d="M9.8 8.6L8.4 10 5 6.4 1.4 10 0 8.6 3.6 5 .1 1.4 1.5 0 5 3.6 8.6 0 10 1.4 6.4 5z"></path>
-    </svg>
-  </button>
-</div>
-
-<article class="bx--card" tabindex="0" aria-labelledby="card-title-1" *ngFor="let job of jobsData; let i = index;">
-  <div class="stop" *ngIf="job.stopClicked">
-    <div>
-      <p>
-        Do you wish to complete the job?
-      </p>
-
-      <button class="bx--btn bx--btn--secondary" type="button" (click)="stopOnly(i);">No, stop only</button>
-      <button class="bx--btn bx--btn--primary" type="button" (click)="completeJob(i);">Yes</button>
-    </div>
+    <button data-notification-btn class="bx--inline-notification__close-button" type="button">
+      <svg class="bx--inline-notification__close-icon" aria-label="close" width="10" height="10" viewBox="0 0 10 10" fill-rule="evenodd">
+        <path d="M9.8 8.6L8.4 10 5 6.4 1.4 10 0 8.6 3.6 5 .1 1.4 1.5 0 5 3.6 8.6 0 10 1.4 6.4 5z"></path>
+      </svg>
+    </button>
   </div>
 
-  <div class="bx--card__card-overview">
-    <!-- OverflowMenu -->
-    <div data-overflow-menu class="bx--overflow-menu" tabindex="0" aria-label="List of options">
-      <button class="bx--app-actions__button" id="start-job" aria-label="start-job">
-        <svg width="21" height="13">
-          <use xlink:href="/assets/img/carbon-icons.svg#icon--arrow--right"></use>
-        </svg>
-      </button>
-    </div>
-    <div class="bx--card-overview__about">
-      <figure class="bx--about__icon">
-        {{job.value.priority}}
-      </figure>
-      <header class="bx--about__title">
-        <h3 id="card-title-1" class="bx--about__title--name">
-          {{job.value.title}}
-        </h3>
-
+  <article class="bx--card" tabindex="0" aria-labelledby="card-title-1" *ngFor="let job of jobsData; let i = index;">
+    <div class="stop" *ngIf="job.stopClicked">
+      <div>
         <p>
-          {{job.value.description}}
+          Do you wish to complete the job?
         </p>
 
-        <p class="left">
-          <b>Asset: </b>
-          {{job.value.asset}}
-        </p>
-
-        <p class="left">
-          <b>Location: </b>
-          {{job.value.location}}
-        </p>
-      </header>
+        <button class="bx--btn bx--btn--secondary" type="button" (click)="stopOnly(i);">No, stop only</button>
+        <button class="bx--btn bx--btn--primary" type="button" (click)="completeJob(i);">Yes</button>
+      </div>
     </div>
-  </div>
-  <div class="bx--card-footer">
-    <div class="bx--card-footer__app-status">
-      <div class="bx--card-footer__app-status--running active">
-        <div class="bx--running__text">
-          {{job.value.status}}
+
+    <div class="bx--card__card-overview">
+      <!-- OverflowMenu -->
+      <div data-overflow-menu class="bx--overflow-menu" tabindex="0" aria-label="List of options">
+        <button class="bx--app-actions__button" aria-label="job-details" (click)="showDetails(job);">
+          <svg width="21" height="13">
+            <use xlink:href="/assets/img/carbon-icons.svg#icon--arrow--right"></use>
+          </svg>
+        </button>
+      </div>
+      <div class="bx--card-overview__about">
+        <figure class="bx--about__icon">
+          {{job.value.priority}}
+        </figure>
+        <header class="bx--about__title">
+          <h3 id="card-title-1" class="bx--about__title--name">
+            {{job.value.title}}
+          </h3>
+
+          <p>
+            {{job.value.description}}
+          </p>
+
+          <p class="left">
+            <b>Asset: </b>
+            {{job.value.asset}}
+          </p>
+
+          <p class="left">
+            <b>Location: </b>
+            {{job.value.location}}
+          </p>
+        </header>
+      </div>
+    </div>
+    <div class="bx--card-footer">
+      <div class="bx--card-footer__app-status">
+        <div class="bx--card-footer__app-status--running active">
+          <div class="bx--running__text">
+            {{job.value.status}}
+          </div>
+        </div>
+        <div class="bx--card-footer__app-status--not-running">
+          <div class="bx--not-running__text">Not Running</div>
+        </div>
+        <div class="bx--card-footer__app-status--stopped">
+          <div class="bx--stopped__text">Stopped</div>
         </div>
       </div>
-      <div class="bx--card-footer__app-status--not-running">
-        <div class="bx--not-running__text">Not Running</div>
-      </div>
-      <div class="bx--card-footer__app-status--stopped">
-        <div class="bx--stopped__text">Stopped</div>
-      </div>
-    </div>
-    <div class="bx--card-footer__app-actions" *ngIf="job.value.status !== 'completed'">
-      <button class="bx--app-actions__button" id="start-job" aria-label="start-job" *ngIf="job.value.status === 'approved'" (click)="startJob(i);">
-        <svg width="21" height="17">
-          <use xlink:href="/assets/img/carbon-icons.svg#icon--start"></use>
-        </svg>
-      </button>
+      <div class="bx--card-footer__app-actions" *ngIf="job.value.status !== 'completed'">
+        <button class="bx--app-actions__button" aria-label="start-job" *ngIf="job.value.status === 'approved'" (click)="startJob(i);">
+          <svg width="21" height="17">
+            <use xlink:href="/assets/img/carbon-icons.svg#icon--start"></use>
+          </svg>
+        </button>
 
-      <button class="bx--app-actions__button" id="stop-job" aria-label="stop-job" *ngIf="job.value.status === 'in-progress'" (click)="stopJob(i);">
-        <svg width="21" height="15">
-          <use xlink:href="/assets/img/carbon-icons.svg#icon--stop"></use>
-        </svg>
-      </button>
+        <button class="bx--app-actions__button" aria-label="stop-job" *ngIf="job.value.status === 'in-progress'" (click)="stopJob(i);">
+          <svg width="21" height="15">
+            <use xlink:href="/assets/img/carbon-icons.svg#icon--stop"></use>
+          </svg>
+        </button>
+      </div>
     </div>
-  </div>
-</article>
+  </article>
+</div>

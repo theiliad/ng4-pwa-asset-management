@@ -5,19 +5,20 @@ import { Http, Response }           from "@angular/http";
 
 import { Observable }               from 'rxjs/Observable';
 
-import { Router }                   from '@angular/router';
+import { ActivatedRoute, Router }   from '@angular/router';
 
 @Component({
     selector: "em-home",
-    templateUrl: "./home.component.html",
-    styleUrls: [ "./home.component.scss" ]
+    templateUrl: "./jobDetails.component.html",
+    styleUrls: [ "./jobDetails.component.scss" ]
 })
 
-export class HomeComponent implements OnInit {
+export class JobDetailsComponent implements OnInit {
     jobsData: any;
+    job: any;
     online: Observable<boolean>;
 
-    constructor (private databaseService: DatabaseService, private http: Http, private router: Router) {
+    constructor (private databaseService: DatabaseService, private http: Http, private route: ActivatedRoute, private router: Router) {
         this.online = databaseService.internetConnection;
     }
 
@@ -30,6 +31,26 @@ export class HomeComponent implements OnInit {
                 console.error(error);
             }
         );
+
+        this.route.params.subscribe(params => {
+            console.log("PARAMS", params);
+
+            if (params.jobID) {
+                this.databaseService.getJob(params.jobID).then(
+                    job => {
+                        console.log("JOB", job);
+
+                        this.job = {
+                            name: params.jobID,
+                            value: job
+                        };
+                    },
+                    error => {
+                        console.error(error);
+                    }
+                );
+            }
+        });
     }
 
     // Convert Firebase data object to an array
@@ -97,9 +118,5 @@ export class HomeComponent implements OnInit {
         this.updateStatus(index, this.jobsData[index]["name"], "completed", true);
         
         this.jobsData[index]["stopClicked"] = false;
-    }
-
-    showDetails(job) {
-        this.router.navigate(['/job', job.name]);
     }
 }
